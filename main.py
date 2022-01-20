@@ -8,10 +8,13 @@ __version__ = "0.1.0"
 __license__ = "MIT"
 
 import os
+import json
 
 from flask import Flask, jsonify
 from flask_cors import CORS
 
+with open("config.json") as json_data_file:
+    cfgdata = json.load(json_data_file)
 
 def create_app(config=None):
    app = Flask(__name__)
@@ -38,4 +41,5 @@ def create_app(config=None):
 if __name__ == "__main__":
    port= int(os.environ.get("PORT", 8000))
    app = create_app()
-   app.run(host="0.0.0.0", port=port
+   app.run(host="0.0.0.0", port=port)
+   
