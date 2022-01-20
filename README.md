@@ -1,4 +1,4 @@
 # py-myplace
 
-Translation layer for exposing AdvanageAir MyPlace as simple REST API
+Translation layer for exposing AdvantageAir MyPlace as simple REST API
 
