@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Documentation
+myplace interface for the plugin https://www.npmjs.com/package/homebridge-web-thermostat-fan
 """
 
 __author__ = "Jase Smith"
@@ -47,6 +47,98 @@ def create_app(config=None):
    @app.route("/foo/<someId>")
    def foo_url_arg(someId):
       return jsonify({"echo": someId})
+
+   @app.route("/zone/<zone>/status")
+   def ACZoneStatus(ACZone):
+      updateMyPlaceData()
+      target = int(myPlaceData['zones']['z0' + ACZone ]['setTemp'])
+      current = myPlaceData['zones']['z0'+ ACZone ]['setTemp']
+      match myPlaceData['info']['fan']:
+         case "auto":
+            fan = 5
+         case "high":
+            fan = 4
+         case "medium":
+            fan = 3
+         case "low":
+            fan = 2
+         case _:
+            fan = 0
+      if myPlaceData['info']['state'] == 'on' and myPlaceData['zones']['z0'+ ACZone ]['state'] == "open":
+         match myPlaceData['info']['mode']:
+            case "heat":
+               state = 1
+            case "cool":
+               state = 2
+            case "vent":
+               state = 3
+            case _:
+               state = 3
+      else:
+         state = 0
+      results = {
+      "targetHeatingCoolingState": state,
+      "targetTemperature": target,
+      "currentHeatingCoolingState": state,
+      "currentTemperature": current,
+      "fanSpeed": fan
+      }
+      return results
+
+   @app.route("/zone/<zone>/targetHeatingCoolingState/<value>")
+   def ACZoneStatus(ACZone,ACValue):
+      urlString = myPlaceUrl + '/setAircon?json='
+      if myPlaceData['info']['state'] == 'off' and ACValue > 0:
+         match ACValue:
+            case 3:
+               urlString += '{"ac1":{"info":{"state":"on","mode":"vent"},"zones":{"z' + ACZone + '":{"state":"open"}}}'
+            case 2:
+               urlString += '{"ac1":{"info":{"state":"on","mode":"cool"},"zones":{"z' + ACZone + '":{"state":"open"}}}'
+            case 1:
+               urlString += '{"ac1":{"info":{"state":"on","mode":"heat"},"zones":{"z' + ACZone + '":{"state":"open"}}}'
+         requests.get(url = urlString)
+      elif ACValue == 0:
+         urlString += '{"ac1":{"zones":{"z' + ACZone + '":{"state":"closed"}}}'
+         requests.get(url = urlString)
+      return "ok"
+
+   @app.route("/zone/<zone>/targetTemperature/<value>")
+   def ACZoneStatus(ACZone,ACValue):
+      urlString = myPlaceUrl + '/setAircon?json={"ac1":{"zones":{"z' + ACZone + '":{"setTemp":' + ACValue + '}}}'
+      requests.get(url = urlString)
+      return "ok"      
+
+   @app.route("/fresh/status")
+   def ACFreshStatus():
+      if myPlaceData['info']['freshAirStatus'] == "on":
+         return "1"
+      else:
+         return "0"
+
+   @app.route("/fresh/set/<value>")
+   def AZFreshSet(ACValue):
+      if ACValue > 0:
+         urlString = myPlaceUrl + 'setAircon?json={"ac1":{"info":{"freshAirStatus":"on"}}}'
+      else:
+         urlString = myPlaceUrl + 'setAircon?json={"ac1":{"info":{"freshAirStatus":"off"}}}'
+      requests.get(url = urlString)
+      return "ok"
+
+   @app.route("/system/status")
+   def ACFreshStatus():
+      if myPlaceData['info']['state'] == "on":
+         return "1"
+      else:
+         return "0"
+
+   @app.route("/system/set/<value>")
+   def AZFreshSet(ACValue):
+      if ACValue > 0:
+         urlString = myPlaceUrl + 'setAircon?json={"ac1":{"info":{"state":"on"}}}'
+      else:
+         urlString = myPlaceUrl + 'setAircon?json={"ac1":{"info":{"state":"off"}}}'
+      requests.get(url = urlString)
+      return "ok"
 
    return app
 
