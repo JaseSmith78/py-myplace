@@ -10,6 +10,7 @@ __license__ = "MIT"
 import os
 import json
 import requests
+import time
 
 from flask import Flask, jsonify
 from flask_cors import CORS
@@ -18,6 +19,14 @@ with open("config.json") as json_data_file:
     cfgdata = json.load(json_data_file)
 
 myPlaceUrl = "http://" + cfgdata['ac_address'] + ":" + str(cfgdata['ac_port'])
+myPlaceData = []
+myPlaceDataExpiry = time.time()
+
+def updateMyPlaceData():
+   if myPlaceDataExpiry < time.time():
+      myPlaceData = (requests.get(url = (myPlaceUrl + "/getSystemData").text)).json()['aircons']['ac1']
+      myPlaceDataExpiry = time.time() + 1
+
 
 def create_app(config=None):
    app = Flask(__name__)
