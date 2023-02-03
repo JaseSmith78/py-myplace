@@ -77,6 +77,7 @@ def create_app(config=None):
       results = {
       "targetHeatingCoolingState": state,
       "targetTemperature": target,
+      "currentHeatingCoolingState": state,
       "currentTemperature": current,
       "fanSpeed": fan
       }
