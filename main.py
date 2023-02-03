@@ -12,7 +12,7 @@ import json
 import requests
 import time
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 
 with open("config.json") as json_data_file:
