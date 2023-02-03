@@ -48,7 +48,7 @@ def create_app(config=None):
    def foo_url_arg(someId):
       return jsonify({"echo": someId})
 
-   @app.route("/zone/<zone>/status")
+   @app.route("/zone/<ACZone>/status")
    def ACZoneStatus(ACZone):
       updateMyPlaceData()
       target = int(myPlaceData['zones']['z0' + ACZone ]['setTemp'])
@@ -85,7 +85,7 @@ def create_app(config=None):
       }
       return results
 
-   @app.route("/zone/<zone>/targetHeatingCoolingState/<value>")
+   @app.route("/zone/<ACZone>/targetHeatingCoolingState/<ACValue>")
    def ACZoneStatus(ACZone,ACValue):
       urlString = myPlaceUrl + '/setAircon?json='
       if myPlaceData['info']['state'] == 'off' and ACValue > 0:
@@ -102,7 +102,7 @@ def create_app(config=None):
          requests.get(url = urlString)
       return "ok"
 
-   @app.route("/zone/<zone>/targetTemperature/<value>")
+   @app.route("/zone/<ACZone>/targetTemperature/<ACValue>")
    def ACZoneStatus(ACZone,ACValue):
       urlString = myPlaceUrl + '/setAircon?json={"ac1":{"zones":{"z' + ACZone + '":{"setTemp":' + ACValue + '}}}'
       requests.get(url = urlString)
@@ -115,7 +115,7 @@ def create_app(config=None):
       else:
          return "0"
 
-   @app.route("/fresh/set/<value>")
+   @app.route("/fresh/set/<ACValue>")
    def AZFreshSet(ACValue):
       if ACValue > 0:
          urlString = myPlaceUrl + 'setAircon?json={"ac1":{"info":{"freshAirStatus":"on"}}}'
@@ -131,7 +131,7 @@ def create_app(config=None):
       else:
          return "0"
 
-   @app.route("/system/set/<value>")
+   @app.route("/system/set/<ACValue>")
    def AZFreshSet(ACValue):
       if ACValue > 0:
          urlString = myPlaceUrl + 'setAircon?json={"ac1":{"info":{"state":"on"}}}'
