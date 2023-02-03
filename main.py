@@ -88,7 +88,7 @@ def create_app(config=None):
    def ACZoneSetState(ACZone):
       ACValue = request.args.get('value', default = 0, type = int)
       urlString = myPlaceUrl + '/setAircon?json='
-      if (myPlaceData['info']['state']) == 'off' and ACValue > 0:
+      if ACValue > 0:
          match ACValue:
             case 3:
                urlString += '{"ac1":{"info":{"state":"on","mode":"vent"},"zones":{"z' + ACZone + '":{"state":"open"}}}'
