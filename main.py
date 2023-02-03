@@ -75,7 +75,6 @@ def create_app(config=None):
       else:
          state = 0
       results = {
-      "targetHeatingCoolingState": state,
       "targetTemperature": target,
       "currentHeatingCoolingState": state,
       "currentTemperature": current,
