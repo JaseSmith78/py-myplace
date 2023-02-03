@@ -113,7 +113,7 @@ def create_app(config=None):
          return "0"
 
    @app.route("/fresh/set/<ACValue>")
-   def AZFreshSet(ACValue):
+   def ACFreshSet(ACValue):
       if ACValue > 0:
          urlString = myPlaceUrl + 'setAircon?json={"ac1":{"info":{"freshAirStatus":"on"}}}'
       else:
@@ -122,14 +122,14 @@ def create_app(config=None):
       return "ok"
 
    @app.route("/system/status")
-   def ACFreshStatus():
+   def ACSystemStatus():
       if myPlaceData['info']['state'] == "on":
          return "1"
       else:
          return "0"
 
    @app.route("/system/set/<ACValue>")
-   def AZFreshSet(ACValue):
+   def ACSystemSet(ACValue):
       if ACValue > 0:
          urlString = myPlaceUrl + 'setAircon?json={"ac1":{"info":{"state":"on"}}}'
       else:
