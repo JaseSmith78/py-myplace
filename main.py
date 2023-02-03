@@ -98,7 +98,7 @@ def create_app(config=None):
                urlString += '{"ac1":{"info":{"state":"on","mode":"heat"},"zones":{"z' + ACZone + '":{"state":"open"}}}'
          requests.get(url = urlString)
       elif ACValue == 0:
-         urlString += '{"ac1":{"zones":{"z' + ACZone + '":{"state":"closed"}}}'
+         urlString += '{"ac1":{"zones":{"z' + ACZone + '":{"state":"close"}}}'
          requests.get(url = urlString)
       print(urlString)
       return "ok"
