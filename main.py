@@ -100,6 +100,7 @@ def create_app(config=None):
       elif ACValue == 0:
          urlString += '{"ac1":{"zones":{"z' + ACZone + '":{"state":"closed"}}}'
          requests.get(url = urlString)
+      print(urlString)
       return "ok"
 
    @app.route("/zone/<ACZone>/targetTemperature/<ACValue>")
