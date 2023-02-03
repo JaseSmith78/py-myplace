@@ -20,7 +20,7 @@ with open("config.json") as json_data_file:
 
 myPlaceUrl = "http://" + cfgdata['ac_address'] + ":" + str(cfgdata['ac_port'])
 myPlaceData = []
-myPlaceDataExpiry = time.time()
+myPlaceDataExpiry = 0.0
 
 def updateMyPlaceData():
    if myPlaceDataExpiry < time.time():
