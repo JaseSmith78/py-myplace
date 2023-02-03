@@ -84,8 +84,9 @@ def create_app(config=None):
       print(results)
       return json.dumps(results)
 
-   @app.route("/zone/<ACZone>/targetHeatingCoolingState/<ACValue>")
-   def ACZoneSetState(ACZone,ACValue):
+   @app.route("/zone/<ACZone>/targetHeatingCoolingState")
+   def ACZoneSetState(ACZone):
+      ACValue = request.args.get('value', default = 0, type = int)
       urlString = myPlaceUrl + '/setAircon?json='
       if myPlaceData['info']['state'] == 'off' and ACValue > 0:
          match ACValue:
