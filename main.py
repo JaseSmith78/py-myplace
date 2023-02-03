@@ -81,7 +81,7 @@ def create_app(config=None):
       "currentTemperature": current,
       "fanSpeed": fan
       }
-      print(json.dumps(results))
+      print(results)
       return json.dumps(results)
 
    @app.route("/zone/<ACZone>/targetHeatingCoolingState/<ACValue>")
