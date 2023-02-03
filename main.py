@@ -44,10 +44,6 @@ def create_app(config=None):
    def hello_world():
       return "Hello World"
 
-   @app.route("/foo/<someId>")
-   def foo_url_arg(someId):
-      return jsonify({"echo": someId})
-
    @app.route("/zone/<ACZone>/status")
    def ACZoneStatus(ACZone):
       updateMyPlaceData()
@@ -87,7 +83,7 @@ def create_app(config=None):
       return results
 
    @app.route("/zone/<ACZone>/targetHeatingCoolingState/<ACValue>")
-   def ACZoneStatus(ACZone,ACValue):
+   def ACZoneSetState(ACZone,ACValue):
       urlString = myPlaceUrl + '/setAircon?json='
       if myPlaceData['info']['state'] == 'off' and ACValue > 0:
          match ACValue:
@@ -104,7 +100,7 @@ def create_app(config=None):
       return "ok"
 
    @app.route("/zone/<ACZone>/targetTemperature/<ACValue>")
-   def ACZoneStatus(ACZone,ACValue):
+   def ACZoneSetTemp(ACZone,ACValue):
       urlString = myPlaceUrl + '/setAircon?json={"ac1":{"zones":{"z' + ACZone + '":{"setTemp":' + ACValue + '}}}'
       requests.get(url = urlString)
       return "ok"      
