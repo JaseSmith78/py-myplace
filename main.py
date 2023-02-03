@@ -91,21 +91,21 @@ def create_app(config=None):
       if ACValue > 0:
          match ACValue:
             case 3:
-               urlString += '{"ac1":{"info":{"state":"on","mode":"vent"},"zones":{"z' + ACZone + '":{"state":"open"}}}'
+               urlString += '{"ac1":{"info":{"state":"on","mode":"vent"},"zones":{"z' + ACZone + '":{"state":"open"}}}}'
             case 2:
-               urlString += '{"ac1":{"info":{"state":"on","mode":"cool"},"zones":{"z' + ACZone + '":{"state":"open"}}}'
+               urlString += '{"ac1":{"info":{"state":"on","mode":"cool"},"zones":{"z' + ACZone + '":{"state":"open"}}}}'
             case 1:
-               urlString += '{"ac1":{"info":{"state":"on","mode":"heat"},"zones":{"z' + ACZone + '":{"state":"open"}}}'
+               urlString += '{"ac1":{"info":{"state":"on","mode":"heat"},"zones":{"z' + ACZone + '":{"state":"open"}}}}'
          requests.get(url = urlString)
       elif ACValue == 0:
-         urlString += '{"ac1":{"zones":{"z' + ACZone + '":{"state":"close"}}}'
+         urlString += '{"ac1":{"zones":{"z' + ACZone + '":{"state":"close"}}}}'
          requests.get(url = urlString)
       print(urlString)
       return "ok"
 
    @app.route("/zone/<ACZone>/targetTemperature/<ACValue>")
    def ACZoneSetTemp(ACZone,ACValue):
-      urlString = myPlaceUrl + '/setAircon?json={"ac1":{"zones":{"z' + ACZone + '":{"setTemp":' + ACValue + '}}}'
+      urlString = myPlaceUrl + '/setAircon?json={"ac1":{"zones":{"z' + ACZone + '":{"setTemp":' + ACValue + '}}}}'
       requests.get(url = urlString)
       return "ok"      
 
