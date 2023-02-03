@@ -26,7 +26,7 @@ def updateMyPlaceData():
    global myPlaceDataExpiry
    global myPlaceData
    if myPlaceDataExpiry < time.time():
-      myPlaceData = (requests.get(url = (myPlaceUrl + "/getSystemData").text)).json()['aircons']['ac1']
+      myPlaceData = (requests.get(url = myPlaceUrl + "/getSystemData")).json()['aircons']['ac1']
       myPlaceDataExpiry = time.time() + 1
 
 
