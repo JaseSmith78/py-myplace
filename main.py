@@ -105,8 +105,8 @@ def create_app(config=None):
 
    @app.route("/zone/<ACZone>/targetTemperature")
    def ACZoneSetTemp(ACZone):
-      ACValue = request.args.get('value', default = 24, type = float)
-      urlString = myPlaceUrl + '/setAircon?json={"ac1":{"zones":{"z' + ACZone + '":{"setTemp":' + ACValue + '}}}}'
+      ACValue = request.args.get('value', default = 24.0, type = float)
+      urlString = myPlaceUrl + '/setAircon?json={"ac1":{"zones":{"z' + ACZone + '":{"setTemp":' + str(ACValue) + '}}}}'
       requests.get(url = urlString)
       return "ok"      
 
