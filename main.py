@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-myplace interface for the plugin https://www.npmjs.com/package/homebridge-web-thermostat-fan
+myplace interface for the plugin https://github.com/phenotypic/homebridge-web-thermostat
+Assumes configured zones are temp sensor enabled 
 """
 
 __author__ = "Jase Smith"
