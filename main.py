@@ -89,18 +89,16 @@ def create_app(config=None):
    def ACZoneSetState(ACZone):
       ACValue = request.args.get('value', default = 0, type = int)
       urlString = myPlaceUrl + '/setAircon?json='
-      if ACValue > 0:
-         match ACValue:
-            case 3:
-               urlString += '{"ac1":{"info":{"state":"on","mode":"vent","freshAirStatus":"on"},"zones":{"z0' + ACZone + '":{"state":"open"}}}}'
-            case 2:
-               urlString += '{"ac1":{"info":{"state":"on","mode":"cool","freshAirStatus":"off"},"zones":{"z0' + ACZone + '":{"state":"open"}}}}'
-            case 1:
-               urlString += '{"ac1":{"info":{"state":"on","mode":"heat","freshAirStatus":"off"},"zones":{"z0' + ACZone + '":{"state":"open"}}}}'
-         requests.get(url = urlString)
-      elif ACValue == 0:
-         urlString += '{"ac1":{"zones":{"z0' + ACZone + '":{"state":"close"}}}}'
-         requests.get(url = urlString)
+      match ACValue:
+         case 3:
+            urlString += '{"ac1":{"info":{"state":"on","mode":"vent","freshAirStatus":"on"},"zones":{"z0' + ACZone + '":{"state":"open"}}}}'
+         case 2:
+            urlString += '{"ac1":{"info":{"state":"on","mode":"cool","freshAirStatus":"off"},"zones":{"z0' + ACZone + '":{"state":"open"}}}}'
+         case 1:
+            urlString += '{"ac1":{"info":{"state":"on","mode":"heat","freshAirStatus":"off"},"zones":{"z0' + ACZone + '":{"state":"open"}}}}'
+         case _:
+            urlString += '{"ac1":{"zones":{"z0' + ACZone + '":{"state":"close"}}}}'
+      requests.get(url = urlString)
       print(urlString)
       return "ok"
 
