@@ -3,10 +3,11 @@ Description=MyPlace Translator
 After=network.target
 
 [Service]
+WorkingDirectory=/usr/local/bin/py-myplace/
 User=pi
 Type=simple
 TimeoutStopSec=10
-ExecStart=/usr/local/bin/py-myplace/main.py
+ExecStart=/usr/bin/python3 /usr/local/bin/py-myplace/main.py
 Restart=on-success
 RestartSec=10
 
