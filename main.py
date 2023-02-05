@@ -50,7 +50,7 @@ def create_app(config=None):
    def ACZoneStatus(ACZone):
       updateMyPlaceData()
       target = int(myPlaceData['zones']['z0' + ACZone ]['setTemp'])
-      current = myPlaceData['zones']['z0'+ ACZone ]['setTemp']
+      current = myPlaceData['zones']['z0'+ ACZone ]['measuredTemp']
       match myPlaceData['info']['fan']:
          case "auto":
             fan = 5
