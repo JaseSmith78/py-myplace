@@ -2,10 +2,22 @@
 """
 myplace interface for the plugin https://github.com/phenotypic/homebridge-web-thermostat
 Assumes configured zones are temp sensor enabled 
+Sample config is
+{
+    "accessory": "Thermostat",
+    "name": "Lounge AC",
+    "apiroute": "http://localhost:8000/zone/1",
+    "temperatureDisplayUnits": 0,
+    "model": "MyPlace 5",
+    "manufacturer": "AdvantageAir",
+    "pollInterval": 60
+}
+
+
 """
 
 __author__ = "Jase Smith"
-__version__ = "0.1.0"
+__version__ = "0.1.2"
 __license__ = "MIT"
 
 import os
