@@ -9,13 +9,14 @@ test by running from main.py
 Install the HomeBridge plugin web thermostat (https://github.com/phenotypic/homebridge-web-thermostat)
 Assumes configured zones are temp sensor enabled 
 Sample config is
-{
+
+`{
     "accessory": "Thermostat",
     "name": "Lounge AC",
     "apiroute": "http://localhost:8000/zone/1",
     "temperatureDisplayUnits": 0,
     "pollInterval": 60
-}
+}`
 
 copy and update py-myplace.service.orginal to py-myplace.service
 
