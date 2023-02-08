@@ -98,8 +98,12 @@ def create_app(config=None):
          case _:
             #is this the MyZone? 
             if int(myPlaceData['info']['myZone']) == ACZone:
-               for nextMyZone in range(1, int(myPlaceData['info']['noOfZones'])):
-                 if myPlaceData['zones']['z0'+ nextMyZone ]['state'] == "open" and nextMyZone != ACZone:
+               print("Trying to turn off MyZone " + ACZone)
+               for nextMyZone in range(1, (int(myPlaceData['info']['noOfZones']))):
+                  print("testing if {1} is turned on and not current MyZone", nextMyZone)
+                  if myPlaceData['zones']['z0'+ nextMyZone ]['state'] == "open" and nextMyZone != ACZone:
+                     print("{1} is turned on and isn't the current MyZone", nextMyZone)
+                     print(urlString + '{"ac1":{"info":{"myZone":' + nextMyZone + '}}}')
                      requests.get(url = (urlString + '{"ac1":{"info":{"myZone":' + nextMyZone + '}}}'))
                      nextMyZone = int(myPlaceData['info']['noOfZones'])
             urlString += '{"ac1":{"zones":{"z0' + ACZone + '":{"state":"close"}}}}'
