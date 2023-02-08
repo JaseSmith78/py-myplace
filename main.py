@@ -103,7 +103,7 @@ def create_app(config=None):
                   if myPlaceData['zones']['z0'+ str(nextMyZone) ]['state'] == "open" and nextMyZone != currentZone:
                      print(f"{nextMyZone} is turned on and isn't the current MyZone")
                      requests.get(url = (urlString + '{"ac1":{"info":{"myZone":' + str(nextMyZone) + '}}}'))
-                     nextMyZone = int(myPlaceData['info']['noOfZones']) + 1
+                     break
             urlString += '{"ac1":{"zones":{"z0' + ACZone + '":{"state":"close"}}}}'
       requests.get(url = urlString)
       print(urlString)
