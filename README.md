@@ -1,13 +1,17 @@
 # py-myplace
 
 Translation layer for exposing AdvantageAir MyPlace as simple REST API
+Assumes configured zones are temp sensor enabled 
+
+Exposes each zone as a complete system
+If MyZone is closed, next enabled zone is selected as new MyZone
 
 copy and update config.json.original to config.json
 
 test by running from main.py 
 
 Install the HomeBridge plugin web thermostat (https://github.com/phenotypic/homebridge-web-thermostat)
-Assumes configured zones are temp sensor enabled 
+
 Sample config is
 
 `{
