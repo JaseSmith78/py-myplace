@@ -107,6 +107,7 @@ def create_app(config=None):
                      print(urlString + '{"ac1":{"info":{"myZone":' + nextMyZone + '}}}')
                      requests.get(url = (urlString + '{"ac1":{"info":{"myZone":' + nextMyZone + '}}}'))
                      nextMyZone = int(myPlaceData['info']['noOfZones'])
+            print(f"MyZone {myZone} != this zone {ACZone}")
             urlString += '{"ac1":{"zones":{"z0' + ACZone + '":{"state":"close"}}}}'
       requests.get(url = urlString)
       print(urlString)
