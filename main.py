@@ -97,8 +97,8 @@ def create_app(config=None):
             urlString += '{"ac1":{"info":{"state":"on","mode":"heat","freshAirStatus":"off"},"zones":{"z0' + ACZone + '":{"state":"open"}}}}'
          case _:
             #is this the MyZone? 
-            myZone = int(myPlaceData['info']['myZone'])
-            if myZone == ACZone:
+            myZone = myPlaceData['info']['myZone']
+            if myZone == int(ACZone):
                print("Trying to turn off MyZone ", ACZone)
                for nextMyZone in range(1, (int(myPlaceData['info']['noOfZones']) + 1)):
                   print(f"testing if {nextMyZone} is turned on and not current MyZone", nextMyZone)
