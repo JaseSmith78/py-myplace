@@ -97,14 +97,14 @@ def create_app(config=None):
             urlString += '{"ac1":{"info":{"state":"on","mode":"heat","freshAirStatus":"off"},"zones":{"z0' + ACZone + '":{"state":"open"}}}}'
          case _:
             #is this the MyZone? 
-            if myPlaceData['info']['myZone'] == int(ACZone):
-               for nextMyZone in range(1, (int(myPlaceData['info']['noOfZones']) + 1)):
-                  print(f"testing if {nextMyZone} is turned on and not current MyZone", nextMyZone)
-                  if myPlaceData['zones']['z0'+ nextMyZone ]['state'] == "open" and nextMyZone != ACZone:
+            currentZone = int(ACZone)
+            if myPlaceData['info']['myZone'] == currentZone:
+               for nextMyZone in range(1, (myPlaceData['info']['noOfZones']) + 1):
+                  if myPlaceData['zones']['z0'+ str(nextMyZone) ]['state'] == "open" and nextMyZone != ACZone:
                      print(f"{nextMyZone} is turned on and isn't the current MyZone")
-                     print(urlString + '{"ac1":{"info":{"myZone":' + nextMyZone + '}}}')
-                     requests.get(url = (urlString + '{"ac1":{"info":{"myZone":' + nextMyZone + '}}}'))
-                     nextMyZone = int(myPlaceData['info']['noOfZones'])
+                     print(urlString + '{"ac1":{"info":{"myZone":' + str(nextMyZone) + '}}}')
+                     requests.get(url = (urlString + '{"ac1":{"info":{"myZone":' + str(nextMyZone) + '}}}'))
+                     nextMyZone = int(myPlaceData['info']['noOfZones']) + 1
             print(f"MyZone {myZone} != this zone {ACZone}")
             urlString += '{"ac1":{"zones":{"z0' + ACZone + '":{"state":"close"}}}}'
       requests.get(url = urlString)
