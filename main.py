@@ -97,7 +97,7 @@ def create_app(config=None):
             urlString += '{"ac1":{"info":{"state":"on","mode":"heat","freshAirStatus":"off"},"zones":{"z0' + ACZone + '":{"state":"open"}}}}'
          case _:
             #is this the MyZone? 
-            if myPlaceData['info']['myZone'] == int(ACZone):
+            if (myPlaceData['info']['myZone']) == int(ACZone):
                for nextMyZone in range(1, myPlaceData['info']['noOfZones']):
                  if myPlaceData['zones']['z0'+ nextMyZone ]['state'] == "open" and nextMyZone != int(ACZone):
                      requests.get(url = (urlString + '{"ac1":{"info":{"myZone":' + nextMyZone + '}}}'))
