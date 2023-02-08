@@ -96,11 +96,10 @@ def create_app(config=None):
          case 1:
             urlString += '{"ac1":{"info":{"state":"on","mode":"heat","freshAirStatus":"off"},"zones":{"z0' + ACZone + '":{"state":"open"}}}}'
          case _:
-            #is this the MyZone? 
-            currentZone = int(ACZone)
-            if myPlaceData['info']['myZone'] == currentZone:
+            #is this the MyZone? if so run through until next open zone found and set that to myZone 
+            if myPlaceData['info']['myZone'] == int(ACZone):
                for nextMyZone in range(1, (myPlaceData['info']['noOfZones']) + 1):
-                  if myPlaceData['zones']['z0'+ str(nextMyZone) ]['state'] == "open" and nextMyZone != currentZone:
+                  if myPlaceData['zones']['z0'+ str(nextMyZone) ]['state'] == "open" and nextMyZone != int(ACZone):
                      print(f"{nextMyZone} is turned on and isn't the current MyZone")
                      requests.get(url = (urlString + '{"ac1":{"info":{"myZone":' + str(nextMyZone) + '}}}'))
                      break
